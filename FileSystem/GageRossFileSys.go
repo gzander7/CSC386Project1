@@ -51,6 +51,7 @@ type SuperBlock struct {
 	InodeStart           int
 	FreeBlockBitmapStart int
 	DataBlockStart       int
+	BlockBitmap          []bool // Bitmap of free blocks
 }
 
 var Inodes [MAX_INODES]Inode // Array of inodes
@@ -87,6 +88,7 @@ func initializeSuperBlock() {
 		InodeStart:           1,
 		FreeBlockBitmapStart: 2,
 		DataBlockStart:       7,
+		BlockBitmap:          []bool{},
 	}
 	superBlockBytes := EncodeToBytes(superBlock)
 	copy(VirtualDisk[0][:], superBlockBytes)
